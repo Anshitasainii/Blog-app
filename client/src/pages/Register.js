@@ -35,7 +35,7 @@ const Register = () => {
       };
 
       const res = await axios.post(url,data);
-      const myData = res.data;
+      // const myData = res.data;
 
       if (data.success) {
         toast.success("User Register Successfully");
