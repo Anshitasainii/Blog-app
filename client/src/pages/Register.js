@@ -25,26 +25,30 @@ const Register = () => {
 
   //form handle
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const url = `${BASE_URL}/api/v1/user/register`;
-      const data = {
-        username: inputs.name,
-        email: inputs.email,
-        password: inputs.password,
-      };
+  e.preventDefault();
+  try {
+    const url = `${BASE_URL}/api/v1/user/register`;
+    const payload = {
+      username: inputs.name,
+      email: inputs.email,
+      password: inputs.password,
+    };
 
-      const res = await axios.post(url,data);
-      // const myData = res.data;
+    const response = await axios.post(url, payload);
+    const resData = response.data;
 
-      if (data.success) {
-        toast.success("User Register Successfully");
-        navigate("/login");
-      }
-    } catch (error) {
-      console.log(error);
+    if (resData.success) {
+      toast.success("User Registered Successfully");
+      navigate("/login");
+    } else {
+      toast.error(resData.message || "Registration failed");
     }
-  };
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong");
+  }
+};
+
   return (
     <>
       <form onSubmit={handleSubmit}>
